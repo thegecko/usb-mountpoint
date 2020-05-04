@@ -1,0 +1,19 @@
+{
+  "name": "usb-mountpoint",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "plist": "^3.0.1",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.4"
+  }
+}
