@@ -11,7 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "plist": "^3.0.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "udev": "github:ConnectionSystems/node-udev"
   },
   "devDependencies": {
     "@types/node": "^13.13.4"
