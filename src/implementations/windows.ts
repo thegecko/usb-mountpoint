@@ -33,7 +33,8 @@ interface WmiObject {
     DeviceID: string;
 }
 
-interface DiskDrive extends WmiObject, USBDevice {
+interface DiskDrive extends WmiObject {
+    SerialNumber: string;
 }
 
 interface DiskPartition extends WmiObject {
@@ -59,7 +60,7 @@ export class WindowsImplementation implements Implementation {
             }
 
             results.push({
-                serialNumber: drive.serialNumber,
+                serialNumber: drive.SerialNumber,
                 mountPoint: disks[0].DeviceID
             })
         }
