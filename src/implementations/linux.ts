@@ -22,5 +22,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-declare module 'plist'
-declare module 'udev'
+import { Implementation, USBDevice } from '../interfaces';
+
+export class LinuxImplementation implements Implementation {
+    public async listDevices(): Promise<USBDevice[]> {
+        const udev = await import('udev');
+
+        let devices = udev.list('usb');
+        let drives = udev.list('block');
+        devices = devices.filter(device => !!device.ID_SERIAL_SHORT);
+        drives = drives.filter(drive => !!drive.ID_SERIAL_SHORT);
+        
+        const results: USBDevice[] = [];
+
+        for (const device of devices) {
+            const mount = drives.find(drive => drive.ID_SERIAL_SHORT === device.ID_SERIAL_SHORT);
+            if (mount) {
+                results.push({
+                    serialNumber: device.ID_SERIAL_SHORT,
+                    mountPoint: mount.ID_FS_LABEL
+                });
+            }
+        }
+
+        return results;
+    }
+}

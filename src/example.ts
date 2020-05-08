@@ -22,5 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-declare module 'plist'
-declare module 'udev'
+import { listDevices } from './';
+
+(async () => {
+    const devices = await listDevices();
+    console.log(JSON.stringify(devices, null, '\t'));
+})();

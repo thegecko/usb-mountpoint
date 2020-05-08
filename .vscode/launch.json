@@ -7,35 +7,11 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Mac",
+            "name": "Launch Example",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/mac.js",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Linux",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/dist/linux.js",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Windows",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/dist/win.js",
+            "program": "${workspaceFolder}/dist/example.js",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
             ]

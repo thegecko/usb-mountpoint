@@ -1,15 +1,14 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
         "outDir": "dist",
+        "module": "commonjs",
+        "target": "es6",
         "alwaysStrict": true,
         "noEmitOnError": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "sourceMap": true,
-        "declaration": true,
-        "declarationDir": "types"
+        "declaration": true
     },
     "include": [
         "src"

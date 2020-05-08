@@ -22,5 +22,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-declare module 'plist'
-declare module 'udev'
+import { platform } from 'os';
+import { Implementation } from './interfaces';
+import { MacImplementation } from './implementations/mac';
+import { LinuxImplementation } from './implementations/linux';
+import { WindowsImplementation } from './implementations/windows';
+
+const getImplementation = (): Implementation => {
+    const host = platform();
+
+    if (host === 'win32') {
+        return new WindowsImplementation();
+    }
+
+    if (host === 'darwin') {
+        return new MacImplementation();
+    }
+
+    // Default to linux
+    return new LinuxImplementation();
+}
+
+const implementation = getImplementation();
+export const listDevices = () => implementation.listDevices();
