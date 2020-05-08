@@ -22,7 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import { promisify } from 'util';
+import { exec } from 'child_process';
 import { Implementation, USBDevice } from '../interfaces';
+
+const asyncExec = promisify(exec);
+
+interface FindMountResult {
+    filesystems: { target: string; }[]
+}
 
 export class LinuxImplementation implements Implementation {
     public async listDevices(): Promise<USBDevice[]> {
@@ -36,15 +44,31 @@ export class LinuxImplementation implements Implementation {
         const results: USBDevice[] = [];
 
         for (const device of devices) {
-            const mount = drives.find(drive => drive.ID_SERIAL_SHORT === device.ID_SERIAL_SHORT);
-            if (mount) {
-                results.push({
-                    serialNumber: device.ID_SERIAL_SHORT,
-                    mountPoint: mount.ID_FS_LABEL
-                });
+            const found = drives.find(drive => drive.ID_SERIAL_SHORT === device.ID_SERIAL_SHORT);
+            if (found) {
+                const mountPoint = await this.findMount(found.DEVNAME);
+                if (found) {
+                    results.push({
+                        serialNumber: device.ID_SERIAL_SHORT,
+                        mountPoint
+                    });
+                }
             }
         }
 
         return results;
+    }
+
+    protected async findMount(deviceName: string): Promise<string | undefined> {
+        const command = `findmnt ${deviceName} --json --first-only --output target`
+        const { stdout } = await asyncExec(command);
+        try {
+            const json: FindMountResult = JSON.parse(stdout.toString());
+            if (json.filesystems.length) {
+                return json.filesystems[0].target;
+            }
+        } catch (_error) {
+            return undefined;
+        }
     }
 }
