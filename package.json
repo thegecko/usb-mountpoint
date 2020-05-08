@@ -7,16 +7,16 @@
     "build": "tsc",
     "watch": "tsc -w"
   },
-  "author": "",
+  "author": "Rob Moran",
   "license": "MIT",
   "dependencies": {
-    "plist": "^3.0.1",
-    "typescript": "^3.8.3"
+    "plist": "^3.0.1"
   },
   "optionalDependencies": {
     "udev": "github:ConnectionSystems/node-udev"
   },
   "devDependencies": {
-    "@types/node": "^13.13.4"
+    "@types/node": "^13.13.4",
+    "typescript": "^3.8.3"
   }
 }
