@@ -25,7 +25,7 @@
     "plist": "^3.0.1"
   },
   "optionalDependencies": {
-    "udev": "^0.6.0"
+    "udev": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "^13.13.4",
